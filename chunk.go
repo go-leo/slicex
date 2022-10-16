@@ -1,27 +1,14 @@
 package slicex
 
-func Chunk[T any](slice []T, size int) [][]T {
-	length := len(slice)
-	chunked := make([][]T, 0, (length+size)/size)
-	for i := 0; i < length; i += size {
-		if i+size < length {
-			chunked = append(chunked, slice[i:i+size])
+func Chunk[S ~[]E, E any](s S, size int) []S {
+	l := len(s)
+	ss2 := make([]S, 0, (l+size)/size)
+	for i := 0; i < l; i += size {
+		if i+size < l {
+			ss2 = append(ss2, s[i:i+size])
 		} else {
-			chunked = append(chunked, slice[i:length])
+			ss2 = append(ss2, s[i:l])
 		}
 	}
-	return chunked
-}
-
-// ChunkIndexes Split the slice into multiple size of blocks, and return all the split point indexes.
-// If the slice cannot be split into all equally long blocks, the last remaining elements will form a block.
-func ChunkIndexes(length, size int) []int {
-	eps := make([]int, 0, (length+size)/size)
-	for i := 0; i < length; i += size {
-		if i%size == 0 {
-			eps = append(eps, i)
-		}
-	}
-	eps = append(eps, length)
-	return eps
+	return ss2
 }
