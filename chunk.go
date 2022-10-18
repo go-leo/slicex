@@ -1,6 +1,6 @@
 package slicex
 
-func Chunk[E any, S ~[]E](s S, size int) []S {
+func Chunk[S ~[]E, E any](s S, size int) []S {
 	l := len(s)
 	ss2 := make([]S, 0, (l+size)/size)
 	for i := 0; i < l; i += size {
