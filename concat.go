@@ -1,6 +1,6 @@
 package slicex
 
-func Concat[S ~[]E, E comparable](ss ...S) S {
+func Concat[S ~[]E, E any](ss ...S) S {
 	var length int
 	for _, s := range ss {
 		length += len(s)
